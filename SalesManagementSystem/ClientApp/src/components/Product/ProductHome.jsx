@@ -18,8 +18,26 @@ export class ProductHome extends Component {
         this.state={
             product:[],
             open:false,
+            order:"ASC"
             
         }
+    }
+
+     sorting =(col)=>{
+      if (this.state.order ==="ASC"){
+        const sorted =[...this.state.product].sort((a,b)=>
+        a[col].toLowerCase()> b[col].toLowerCase()? 1:-1);
+        this.setState({product: sorted});
+        this.setState({order:"DSC"});
+      }
+
+      if (this.state.order ==="DSC"){
+        const sorted =[...this.state.product].sort((a,b)=>
+        a[col].toLowerCase()< b[col].toLowerCase()? 1:-1);
+        this.setState({product:sorted});
+        this.setState({order:"ASC"});
+      }
+      
     }
 
    
@@ -65,7 +83,7 @@ export class ProductHome extends Component {
              <CreateProduct open={open} openCreateProductModal={this.openCreateProductModal} fetchProduct={this.fetchProduct}  />
 
              {/* getting and showing customer table function from the customer table page and passing up some props */}
-             <ProductTable product={product} refreshPage={this.fetchProduct}  />
+             <ProductTable product={product} refreshPage={this.fetchProduct} sorting={this.sorting} />
                  
         </div>
     )

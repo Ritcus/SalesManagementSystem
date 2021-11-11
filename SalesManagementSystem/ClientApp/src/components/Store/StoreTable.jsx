@@ -14,7 +14,7 @@ import EditStoreModal from './EditStore';
 
  //calling props from CustomerHome for getting customer data and refreshing the page when delete 
 const StoreTable = (props) => {
-    const{store, refreshPage}=props;
+    const{store, refreshPage,sorting}=props;
 
 
     //store a particular customer while mappling which later be used as editing or deleting the same customer
@@ -78,7 +78,7 @@ const StoreTable = (props) => {
   <Table celled striped>
     <Table.Header>
       <Table.Row>
-      <Table.HeaderCell>Store Name</Table.HeaderCell>
+      <Table.HeaderCell>Store Name <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("name")}}/></Table.HeaderCell>
         <Table.HeaderCell>Store Address</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>

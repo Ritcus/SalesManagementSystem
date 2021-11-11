@@ -20,9 +20,27 @@ export class StoreHome extends Component {
         this.state={
             store:[],
             open:false,
+            order:"ASC"
             
         }
     }
+
+    sorting =(col)=>{
+        if (this.state.order ==="ASC"){
+          const sorted =[...this.state.store].sort((a,b)=>
+          a[col].toLowerCase()> b[col].toLowerCase()? 1:-1);
+          this.setState({store: sorted});
+          this.setState({order:"DSC"});
+        }
+  
+        if (this.state.order ==="DSC"){
+          const sorted =[...this.state.store].sort((a,b)=>
+          a[col].toLowerCase()< b[col].toLowerCase()? 1:-1);
+          this.setState({store:sorted});
+          this.setState({order:"ASC"});
+        }
+        
+      }
 
    
    //getting data as soon as the page being mounted 
@@ -67,7 +85,7 @@ export class StoreHome extends Component {
              <CreateStore open={open} openCreateStoreModal={this.openCreateStoreModal} fetchStore={this.fetchStore}  />
 
              {/* getting and showing customer table function from the customer table page and passing up some props */}
-             <StoreTable store={store} refreshPage={this.fetchStore}  />
+             <StoreTable store={store} refreshPage={this.fetchStore} sorting={this.sorting} />
                  
         </div>
     )

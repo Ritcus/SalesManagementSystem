@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Container } from 'reactstrap';
-import { NavMenu } from './NavMenu';
+
 import { Container } from 'semantic-ui-react';
 import NavMenuBar from './NavMenuBar';
 

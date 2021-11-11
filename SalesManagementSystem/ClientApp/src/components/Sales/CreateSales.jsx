@@ -1,8 +1,11 @@
 import React,{useState, useEffect} from 'react'
 import {Modal, Form, Button, Select} from 'semantic-ui-react';
 import axios from 'axios';
+import DatePicker from "react-datepicker";
 
-import { useForm } from 'react-hook-form';
+
+
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -15,7 +18,7 @@ export function CreateSales(props) {
     const[sCId, setSCId]=useState();
     const[sPId , setSPId]=useState();
     const[sSId, setSSId]=useState();
-    const[sDate , setSDate]=useState(Date);
+    const[sDate , setSDate]=useState(new Date());
 
 
     //Options for select box of Customers, Products and Stores
@@ -87,8 +90,8 @@ export function CreateSales(props) {
           
           <Form >
       <Form.Field>
-      <label>Date Sold <p style={{color:"red"}}>(YYYY-MM-DD)</p></label>
-      <input  placeholder='Enter a date' onChange={(e)=>{setSDate(e.target.value)}} /> 
+      <label>Date Sold </label>
+      <DatePicker selected={sDate} onChange={(e)=>{setSDate(e)}} /> 
       </Form.Field>
 
       <Form.Field>

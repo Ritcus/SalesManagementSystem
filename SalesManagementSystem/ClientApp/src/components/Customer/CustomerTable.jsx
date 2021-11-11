@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import { Table,Form,Button,Modal, Dropdown,} from 'semantic-ui-react'
 import './Paginations.css';
 
-import $ from 'jquery'
+import axios from 'axios';
 import edit from '../../img/edit.png'
 import del from '../../img/del.png'
+
 
 import EditCustomerModal from './EditCustomer'
 
@@ -12,9 +13,11 @@ import EditCustomerModal from './EditCustomer'
 import ReactPaginate from 'react-paginate'
 
 
+
  //calling props from CustomerHome for getting customer data and refreshing the page when delete 
 const CustomerTable = (props) => {
-    const{customer, refreshPage}=props;
+    const{customer, refreshPage, sorting,order}=props;
+
 
 
     //store a particular customer while mappling which later be used as editing or deleting the same customer
@@ -24,21 +27,23 @@ const CustomerTable = (props) => {
     const[delmodalShow, setDelModalShow] = useState();
     const[editmodalShow, setEditModalShow] = useState();
 
+    
+
 
     //used to call delete function to API
+
     const deleteCustomer=(id)=>{
       
-      $.ajax({
-        url:`https://localhost:44353/Customers/DeleteCustomer/`+id,
-        data:{id:id},
-        type:'delete',
-        cache:true,
-        success:function(aa){
-          refreshPage()
-        }
-        })
-        
-    }
+      axios.delete(`Customers/DeleteCustomer/${id}`)
+      .then (res => { 
+        refreshPage()
+      }).catch(err => {
+        console.log(err)
+      })
+    
+  
+      
+  }
 
     // creating an aray for option on dropdown box to show the number of element
     let optio=[{name:"3", id:3},
@@ -70,7 +75,7 @@ const CustomerTable = (props) => {
     }
     const pagesCount =Math.ceil(customer.length /customersPerPage );
    
-
+    
     //thats where our table stated and will be mapping the when user select how many customer shown per page .. onfirst run it will just pickup the default value of 10 customer per page
 
     return(
@@ -79,8 +84,8 @@ const CustomerTable = (props) => {
   <Table celled striped>
     <Table.Header>
       <Table.Row>
-      <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Address</Table.HeaderCell>
+      <Table.HeaderCell  > Name <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("name")}}/></Table.HeaderCell>
+        <Table.HeaderCell >Address <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("address")}}/></Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
       </Table.Row>

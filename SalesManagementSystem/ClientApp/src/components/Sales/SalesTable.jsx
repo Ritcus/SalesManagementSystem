@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import { Table,Form,Button,Modal, Dropdown, Select} from 'semantic-ui-react'
 import '../Customer/Paginations.css';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import axios from 'axios'
 import edit from '../../img/edit.png'
 import del from '../../img/del.png'
@@ -14,7 +17,7 @@ import ReactPaginate from 'react-paginate'
 
  //calling props from CustomerHome for getting customer data and refreshing the page when delete 
 const SalesTable = (props) => {
-    const{sales, refreshPage, customer, product, store}=props;
+    const{sales, refreshPage, customer, product, store,sorting}=props;
 
 
     //sales a particular customer while mappling which later be used as editing or deleting the same customer
@@ -101,11 +104,11 @@ let customerOption = customer.map(c=>{
   <Table celled striped>
     <Table.Header>
       <Table.Row>
-      <Table.HeaderCell>Sale ID</Table.HeaderCell>
-      <Table.HeaderCell>Customer Name</Table.HeaderCell>
-        <Table.HeaderCell>Product Bought</Table.HeaderCell>
-        <Table.HeaderCell>Store Name</Table.HeaderCell>
-        <Table.HeaderCell>Date Sold</Table.HeaderCell>
+      <Table.HeaderCell>Sale ID <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("id")}}/></Table.HeaderCell>
+      <Table.HeaderCell >Customer Name <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("customer")}}/></Table.HeaderCell>
+        <Table.HeaderCell>Product Bought<i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("product")}}/></Table.HeaderCell>
+        <Table.HeaderCell>Store Name<i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("store")}}/></Table.HeaderCell>
+        <Table.HeaderCell>Date Sold <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("dateSold")}}/></Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
       </Table.Row>
@@ -117,7 +120,7 @@ let customerOption = customer.map(c=>{
       
       <Table.Row key={s.id}>
           <Table.Cell>{s.id}</Table.Cell>
-          <Table.Cell>{s.customer ? s.customer.name:"No customer assigned"}</Table.Cell>
+          <Table.Cell onClick={()=>console.log(s.customer.name)}>{s.customer ? s.customer.name:"No customer assigned"}</Table.Cell>
         <Table.Cell>{s.product ? s.product.name:"No customer assigned"}</Table.Cell>
         <Table.Cell>{s.store ? s.store.name:"No customer assigned"}</Table.Cell>
         <Table.Cell>{displayMonthName(s.dateSold)}</Table.Cell>
@@ -231,7 +234,7 @@ const EditSalesModal =({ sStore,sDate, sProduct,sid,customerId, nHide,productOpt
     
       const[storeId, setStoreId]=useState(sStore);
       const[productId, setProductId]=useState(sProduct);
-      const[SalesDate, setSalesDate]=useState(sDate);
+      const[SalesDate, setSalesDate]=useState(new Date(sDate));
   
       const[nShow,setNShow]=useState(true)
   
@@ -292,10 +295,10 @@ const EditSalesModal =({ sStore,sDate, sProduct,sid,customerId, nHide,productOpt
   
   <Form>
   <Form.Field>
-  <label>Date of Sale <p style={{color:"red"}}>(YYYY-MM-DD)</p></label>
+  <label>Date of Sale</label>
   
     {/* getting the input from the user and setting it using usestate */}
-    <input defaultValue={sDate.slice(0,10)} onChange={(e)=>{setSalesDate(e.target.value)}} /> 
+    <DatePicker selected={SalesDate} onChange={(e)=>{setSalesDate(e)}} /> 
   
   </Form.Field>
   <Form.Field>

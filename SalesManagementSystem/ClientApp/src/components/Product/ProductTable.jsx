@@ -14,7 +14,7 @@ import EditProductModal from './EditProduct';
 
  //calling props from CustomerHome for getting customer data and refreshing the page when delete 
 const ProductTable = (props) => {
-    const{product, refreshPage}=props;
+    const{product, refreshPage,sorting}=props;
 
 
     //store a particular customer while mappling which later be used as editing or deleting the same customer
@@ -78,7 +78,7 @@ const ProductTable = (props) => {
   <Table celled striped>
     <Table.Header>
       <Table.Row>
-      <Table.HeaderCell>Name</Table.HeaderCell>
+      <Table.HeaderCell>Name <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("name")}}/></Table.HeaderCell>
         <Table.HeaderCell>Price (AUD$)</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
