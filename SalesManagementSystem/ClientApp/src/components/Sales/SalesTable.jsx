@@ -17,7 +17,7 @@ import ReactPaginate from 'react-paginate'
 
  //calling props from CustomerHome for getting customer data and refreshing the page when delete 
 const SalesTable = (props) => {
-    const{sales, refreshPage, customer, product, store,sorting}=props;
+    const{sales, refreshPage, customer, product, store,sorting, sortingDate}=props;
 
 
     //sales a particular customer while mappling which later be used as editing or deleting the same customer
@@ -108,7 +108,7 @@ let customerOption = customer.map(c=>{
       <Table.HeaderCell >Customer Name <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("customer")}}/></Table.HeaderCell>
         <Table.HeaderCell>Product Bought<i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("product")}}/></Table.HeaderCell>
         <Table.HeaderCell>Store Name<i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("store")}}/></Table.HeaderCell>
-        <Table.HeaderCell>Date Sold <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sorting("dateSold")}}/></Table.HeaderCell>
+        <Table.HeaderCell>Date Sold <i style={{cursor:"pointer"}} className="sort icon" onClick={()=>{sortingDate("dateSold")}}/></Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
         <Table.HeaderCell>Actions</Table.HeaderCell>
       </Table.Row>
