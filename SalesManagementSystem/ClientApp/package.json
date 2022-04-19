@@ -1,7 +1,7 @@
 {
   "name": "salesmanagementsystem",
   "version": "0.1.0",
-  "private": true,
+  
   "dependencies": {
     "axios": "^0.24.0",
     "bootstrap": "^4.1.3",
